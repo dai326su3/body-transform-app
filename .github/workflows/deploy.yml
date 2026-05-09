@@ -15,7 +15,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+
+      - name: Fix src structure
+        run: |
+          mkdir -p src
+          [ -f App.jsx ] && mv App.jsx src/App.jsx
+          [ -f main.jsx ] && mv main.jsx src/main.jsx
 
       - name: Install dependencies
         run: npm install
