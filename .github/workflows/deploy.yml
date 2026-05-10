@@ -25,6 +25,10 @@ jobs:
           [ -f App.jsx ] && mv App.jsx src/App.jsx
           [ -f main.jsx ] && mv main.jsx src/main.jsx
 
+      - name: Fix smart quotes
+        run: |
+          sed -i 's/\u201c/"/g; s/\u201d/"/g; s/\u2018/'"'"'/g; s/\u2019/'"'"'/g' src/App.jsx
+
       - name: Install dependencies
         run: npm install
 
