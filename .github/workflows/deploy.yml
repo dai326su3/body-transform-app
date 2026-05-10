@@ -27,7 +27,15 @@ jobs:
 
       - name: Fix smart quotes
         run: |
-          sed -i 's/\u201c/"/g; s/\u201d/"/g; s/\u2018/'"'"'/g; s/\u2019/'"'"'/g' src/App.jsx
+          python3 - <<'EOF'
+          import re
+          with open('src/App.jsx', 'r', encoding='utf-8') as f:
+              content = f.read()
+          content = content.replace('\u201c', '"').replace('\u201d', '"')
+          content = content.replace('\u2018', "'").replace('\u2019', "'")
+          with open('src/App.jsx', 'w', encoding='utf-8') as f:
+              f.write(content)
+          EOF
 
       - name: Install dependencies
         run: npm install
